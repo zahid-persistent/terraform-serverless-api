@@ -1,5 +1,12 @@
 # aws-cloud-automation-meetup-cicd
 
+## order of resource creation
+
+1. create the lambda function
+2. create the API gateway
+3. create DynamoDb
+4. test Lambda all the way to dynamo db
+
 ## live demo
 
 [![youtube link to recorded live demo](https://img.youtube.com/vi/MAhucSzRq8o/0.jpg)](https://www.youtube.com/watch?v=MAhucSzRq8o)

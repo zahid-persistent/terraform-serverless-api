@@ -3,3 +3,5 @@ provider "aws" {
 
   profile = "terraform-cloud"
 }
+
+provider "archive" {}

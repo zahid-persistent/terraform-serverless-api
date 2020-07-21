@@ -3,3 +3,4 @@
 *.pem
 notes.txt
 .terraform/**
+terraform.tfstate*
