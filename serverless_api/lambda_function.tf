@@ -53,6 +53,7 @@ resource "aws_lambda_function" "this" {
   environment {
     variables = {
       DEBUG = "false"
+      SLACK_WEBHOOK = var.slack_webhook
     }
   }
 

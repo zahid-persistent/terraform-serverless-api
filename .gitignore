@@ -4,3 +4,4 @@
 notes.txt
 .terraform/**
 terraform.tfstate*
+terraform.tfvars

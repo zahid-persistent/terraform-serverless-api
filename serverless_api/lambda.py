@@ -3,7 +3,7 @@ import json, os, boto3
 
 
 def send_to_slack(message):
-    url = ''
+    url = os.environ['SLACK_WEBHOOK']
     body = {"text": message}
     bytes = json.dumps(body).encode('utf-8')
 
