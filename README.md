@@ -2,10 +2,11 @@
 
 ## order of resource creation
 
-1. create the lambda function
-2. create the API gateway
-3. create DynamoDb
+1. create the lambda function & test
+2. create the API gateway & test
+3. create DynamoDb & test
 4. test Lambda all the way to dynamo db
+5. create the front end & test
 
 ## live demo
 
