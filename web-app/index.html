@@ -41,9 +41,9 @@
                     "position" : position
                 };
 
-                $.post("https://dt8ucxb8ol.execute-api.us-east-1.amazonaws.com/prod/createRaceResult", JSON.stringify(body), function(data){
+                $.post("https://dt8ucxb8ol.execute-api.us-east-1.amazonaws.com/prod/createRaceResult", JSON.stringify(body), function(data) {
                     alert("race result created successfully");
-                });
+                }, "text");
             });
         });
     </script>

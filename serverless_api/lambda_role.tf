@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "this" {
     effect = "Allow"
 
     resources = [
-  //    data.aws_dynamodb_table.this.arn
+      aws_dynamodb_table.this.arn,
       "arn:aws:logs:*"
     ]
 

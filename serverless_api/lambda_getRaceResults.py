@@ -16,6 +16,8 @@ def send_to_slack(message):
 def main(event, context):
     send_to_slack("```" + json.dumps(event) + "```")
 
+    # TODO read from dynamodb
+
     raceResults = [
         {'date': '07/22/2020',
          'driver': 'Lewis Hamilton',
