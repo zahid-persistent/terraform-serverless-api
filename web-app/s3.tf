@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "this" {
   }
 }
 
-resource "aws_s3_bucket_object" "this" {
+resource "aws_s3_bucket_object" "index" {
   bucket = aws_s3_bucket.this.bucket
   acl = "public-read"
 
@@ -25,4 +25,15 @@ resource "aws_s3_bucket_object" "this" {
   content_type = "text/html"
 
   etag = filemd5("${path.module}/index.html")
+}
+
+resource "aws_s3_bucket_object" "javascript" {
+  bucket = aws_s3_bucket.this.bucket
+  acl = "public-read"
+
+  key = "raceResult.js"
+  source = "${path.module}/raceResult.js"
+  content_type = "text/html"
+
+  etag = filemd5("${path.module}/raceResult.js")
 }
