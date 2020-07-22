@@ -1,31 +1,17 @@
-locals {
-  function_name = "getRaceResults"
-}
-
-variable "lambda_file" {
-  type = string
-  default = "lambda_getRaceResults.py"
-}
-
-variable "lambda_zip_file" {
-  type = string
-  default = "lambda_getRaceResults.zip"
-}
-
 data "archive_file" "notification_lambda" {
   type = "zip"
 
-  source_file = "${path.module}/${var.lambda_file}"
-  output_path = "${path.module}/${var.lambda_zip_file}"
+  source_file = "${path.module}/lambda_getRaceResults.py"
+  output_path = "${path.module}/lambda_getRaceResults.zip"
 }
 
 resource "aws_lambda_function" "this" {
-  filename = "${path.module}/${var.lambda_zip_file}"
-  function_name = local.function_name
+  filename = "${path.module}/lambda_getRaceResults.zip"
+  function_name = "getRaceResults"
   role = aws_iam_role.this.arn
-  handler = "lambda_${local.function_name}.send_message"
+  handler = "lambda_getRaceResults.main"
 
-  source_code_hash = filebase64sha256("${path.module}/${var.lambda_zip_file}")
+  source_code_hash = filebase64sha256("${path.module}/lambda_getRaceResults.zip")
 
   runtime = "python3.7"
 
@@ -49,6 +35,6 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name              = "/aws/lambda/${local.function_name}"
+  name              = "/aws/lambda/getRaceResults"
   retention_in_days = 14
 }

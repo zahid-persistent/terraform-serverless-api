@@ -23,6 +23,8 @@ EOF
   }
 }
 
+
+
 data "aws_iam_policy_document" "this" {
 
   statement {
@@ -33,7 +35,6 @@ data "aws_iam_policy_document" "this" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:codecommit:*:*",
   //    data.aws_dynamodb_table.this.arn
       "arn:aws:logs:*"
     ]
