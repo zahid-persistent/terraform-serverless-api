@@ -4,12 +4,12 @@ locals {
 
 variable "lambda_file" {
   type = string
-  default = "lambda.py"
+  default = "lambda_getRaceResults.py"
 }
 
 variable "lambda_zip_file" {
   type = string
-  default = "lambda.zip"
+  default = "lambda_getRaceResults.zip"
 }
 
 data "archive_file" "notification_lambda" {
@@ -23,7 +23,7 @@ resource "aws_lambda_function" "this" {
   filename = "${path.module}/${var.lambda_zip_file}"
   function_name = local.function_name
   role = aws_iam_role.this.arn
-  handler = "lambda.send_message"
+  handler = "lambda_${local.function_name}.send_message"
 
   source_code_hash = filebase64sha256("${path.module}/${var.lambda_zip_file}")
 
