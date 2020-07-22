@@ -1,11 +1,11 @@
-data "archive_file" "notification_lambda" {
+data "archive_file" "getRaceResults" {
   type = "zip"
 
   source_file = "${path.module}/lambda_getRaceResults.py"
   output_path = "${path.module}/lambda_getRaceResults.zip"
 }
 
-resource "aws_lambda_function" "this" {
+resource "aws_lambda_function" "getRaceResults" {
   filename = "${path.module}/lambda_getRaceResults.zip"
   function_name = "getRaceResults"
   role = aws_iam_role.this.arn
@@ -31,10 +31,10 @@ resource "aws_lambda_function" "this" {
   }
 
   depends_on = [
-    data.archive_file.notification_lambda, aws_cloudwatch_log_group.this]
+    data.archive_file.getRaceResults, aws_cloudwatch_log_group.getRaceResults]
 }
 
-resource "aws_cloudwatch_log_group" "this" {
+resource "aws_cloudwatch_log_group" "getRaceResults" {
   name              = "/aws/lambda/getRaceResults"
   retention_in_days = 14
 }

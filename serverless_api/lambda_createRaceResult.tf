@@ -5,7 +5,7 @@ data "archive_file" "createRaceResults" {
   output_path = "${path.module}/lambda_createRaceResult.zip"
 }
 
-resource "aws_lambda_function" "getRaceResults" {
+resource "aws_lambda_function" "createRaceResult" {
   filename = "${path.module}/lambda_createRaceResult.zip"
   function_name = "createRaceResult"
   role = aws_iam_role.this.arn
@@ -31,10 +31,10 @@ resource "aws_lambda_function" "getRaceResults" {
   }
 
   depends_on = [
-    data.archive_file.notification_lambda, aws_cloudwatch_log_group.this]
+    data.archive_file.getRaceResults, aws_cloudwatch_log_group.getRaceResults]
 }
 
-resource "aws_cloudwatch_log_group" "getRaceResults" {
+resource "aws_cloudwatch_log_group" "createRaceResults" {
   name              = "/aws/lambda/createRaceResult"
   retention_in_days = 14
 }
