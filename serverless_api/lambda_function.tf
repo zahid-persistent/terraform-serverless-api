@@ -1,3 +1,7 @@
+locals {
+  function_name = "getRaceResults"
+}
+
 variable "lambda_file" {
   type = string
   default = "lambda.py"
@@ -15,34 +19,9 @@ data "archive_file" "notification_lambda" {
   output_path = "${path.module}/${var.lambda_zip_file}"
 }
 
-resource "aws_iam_role" "this" {
-  name = var.name
-
-  assume_role_policy = <<-EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
-
-  tags = {
-    Name = var.name
-    Contact = var.contact_tag
-  }
-}
-
 resource "aws_lambda_function" "this" {
   filename = "${path.module}/${var.lambda_zip_file}"
-  function_name = var.name
+  function_name = local.function_name
   role = aws_iam_role.this.arn
   handler = "lambda.send_message"
 
@@ -70,6 +49,6 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name              = "/aws/lambda/${var.name}"
+  name              = "/aws/lambda/${local.function_name}"
   retention_in_days = 14
 }

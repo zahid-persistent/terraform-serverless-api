@@ -6,6 +6,12 @@ resource "aws_api_gateway_deployment" "this" {
   rest_api_id = aws_api_gateway_rest_api.this.id
   stage_name = "prod"
 
+  triggers = {
+    redeployment = sha1(join(",", list(
+      jsonencode(aws_api_gateway_integration.this),
+    )))
+  }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -13,16 +19,8 @@ resource "aws_api_gateway_deployment" "this" {
   depends_on = [aws_api_gateway_method.this]
 }
 
-/*
-resource "aws_api_gateway_stage" "this" {
-  stage_name    = "prod"
-  rest_api_id   = aws_api_gateway_rest_api.this.id
-  deployment_id = aws_api_gateway_deployment.this.id
-}
-*/
-
 resource "aws_api_gateway_resource" "this" {
-  path_part   = "raceResults"
+  path_part   = aws_lambda_function.this.function_name
   parent_id   = aws_api_gateway_rest_api.this.root_resource_id
   rest_api_id = aws_api_gateway_rest_api.this.id
 }
