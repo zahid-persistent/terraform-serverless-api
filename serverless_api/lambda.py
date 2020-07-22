@@ -20,7 +20,11 @@ def send_message(event, context):
         {'date': '07/22/2020',
          'driver': 'Lewis Hamilton',
          'track': 'Austria',
-         'position': '1'}
+         'position': '1'},
+        {'date': '07/22/2020',
+         'driver': 'Max Verstappen',
+         'track': 'Austria',
+         'position': '2'}
     ]
 
     response = {

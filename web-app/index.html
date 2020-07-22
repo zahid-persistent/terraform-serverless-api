@@ -7,13 +7,23 @@
     <script>
         $(document).ready(function () {
 
-            var raceResults = [];
-
+            // get the race results and put them into a table
             $.getJSON("https://uj91mrgt28.execute-api.us-east-1.amazonaws.com/prod/raceResults", function (data) {
 
-                raceResults = data
+                raceResults = data;
+                var date;
+                var driver;
+                var track;
+                var position;
 
-                // TODO: parse data anto add to DOM
+                $.each(data, function(index, raceResult) {
+                    date = raceResult.date;
+                    driver = raceResult.driver;
+                    track = raceResult.track;
+                    position = raceResult.position;
+
+                    $("#raceResults").append("<tr><td>" + date + "</td><td>" + driver + "</td><td>" + track + "</td><td>" + position + "</td></tr>");
+                });
             });
 
             // generate release notes button
@@ -45,6 +55,15 @@
 <body>
 
     <h2>Formula 1 Race Results</h2>
+
+    <table id="raceResults" width="800px">
+        <tr>
+            <th>Date</th>
+            <th>Driver</th>
+            <th>Track</th>
+            <th>Position</th>
+        </tr>
+    </table>
 
     <form>
 
