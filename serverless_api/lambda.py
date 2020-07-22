@@ -16,13 +16,22 @@ def send_to_slack(message):
 def send_message(event, context):
     send_to_slack("```" + json.dumps(event) + "```")
 
+    raceResults = [
+        {'date': '07/22/2020',
+         'driver': 'Lewis Hamilton',
+         'track': 'Austria',
+         'position': '1'}
+    ]
+
     response = {
         'statusCode': 200,
         'headers': {
             "x-custom-header": "my custom header value",
             "Access-Control-Allow-Origin": "*"
         },
-        'body': 'method succeeded'
+        'body': json.dumps(raceResults)
     }
+
+    send_to_slack("```" + json.dumps(response) + "```")
 
     return response

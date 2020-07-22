@@ -2,8 +2,8 @@
 
 ## order of resource creation
 
-1. create the lambda function & test
-2. create the API gateway & test
+1. create the lambda function & test lambda within AWS console
+2. create the API gateway & test API within AWS Console
 3. create DynamoDb & test
 4. test Lambda all the way to dynamo db
 5. create the front end & test

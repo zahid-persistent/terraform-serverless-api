@@ -7,27 +7,13 @@
     <script>
         $(document).ready(function () {
 
-            var repositoryTags = [];
+            var raceResults = [];
 
-            $.getJSON("https://efbdd5mnf1.execute-api.us-east-1.amazonaws.com/prod/tag", function (data) {
+            $.getJSON("https://uj91mrgt28.execute-api.us-east-1.amazonaws.com/prod/raceResults", function (data) {
 
-                repositoryTags = data
+                raceResults = data
 
-                $.each(repositoryTags, function (repository, tags) {
-                    $("#repositories").append("<option value=\"" + repository + "\">" + repository + "</option > ");
-                });
-
-                $.each(repositoryTags, function (repository, tags) {
-                    $.each(tags, function (index, tag) {
-                        $("#startingTag").append("<option value=\"" + tag + "\">" + tag + "</option > ");
-                    });
-                });
-
-                $.each(repositoryTags, function (repository, tags) {
-                    $.each(tags, function (index, tag) {
-                        $("#endingTag").append("<option value=\"" + tag + "\">" + tag + "</option > ");
-                    });
-                });
+                // TODO: parse data anto add to DOM
             });
 
             // generate release notes button

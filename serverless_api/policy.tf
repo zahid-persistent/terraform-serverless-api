@@ -11,6 +11,7 @@ data "aws_iam_policy_document" "this" {
     resources = [
       "arn:aws:codecommit:*:*",
   //    data.aws_dynamodb_table.this.arn
+      "arn:aws:logs:*"
     ]
 
     sid = "codecommitid"
