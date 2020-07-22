@@ -6,3 +6,7 @@ module "serverless-api" {
 
   contact_tag = "Michel"
 }
+
+module "web-app" {
+  source = "./web-app"
+}
