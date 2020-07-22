@@ -1,9 +1,21 @@
 $(document).ready(function () {
 
     // get the race results and put them into a table
-    $.getJSON("https://dt8ucxb8ol.execute-api.us-east-1.amazonaws.com/prod/getRaceResults", function (data) {
+    $.getJSON("https://dt8ucxb8ol.execute-api.us-east-1.amazonaws.com/prod/getRaceResults", function (raceResults) {
 
-        // TODO
+        var date;
+        var driver;
+        var track;
+        var position;
+
+        $.each(raceResults, function(index, raceResult) {
+            date = raceResult.date;
+            driver = raceResult.driver;
+            track = raceResult.track;
+            position = raceResult.position;
+
+            $("#raceResults").append("<tr><td>" + date + "</td><td>" + driver + "</td><td>" + track + "</td><td>" + position + "</td></tr>");
+        });
     });
 
     // create the race result

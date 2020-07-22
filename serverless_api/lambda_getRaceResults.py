@@ -16,9 +16,37 @@ def send_to_slack(message):
 def main(event, context):
     send_to_slack("```" + json.dumps(event) + "```")
 
+    # TODO from from dynamo db
+    client = boto3.client('dynamodb')
 
-    # TODO
+    response = client.scan(TableName="RaceResults");
+    race_result_items = response["Items"]
 
+    send_to_slack("```" + json.dumps(response) + "```")
+
+    race_results = []
+
+    for race_result_item in race_result_items:
+        date = race_result_item["Date"]["S"]
+        driver = race_result_item["Driver"]["S"]
+        track = race_result_item["Track"]["S"]
+        position = race_result_item["Position"]["S"]
+
+        race_results.append({
+            'date': date,
+            'driver': driver,
+            'track': track,
+            'position': position
+        })
+
+    response = {
+        'statusCode': 200,
+        'headers': {
+            "x-custom-header": "my custom header value",
+            "Access-Control-Allow-Origin": "*"
+        },
+        'body': json.dumps(race_results)
+    }
 
     send_to_slack("```" + json.dumps(response) + "```")
 
