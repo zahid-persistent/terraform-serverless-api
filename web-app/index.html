@@ -26,27 +26,23 @@
                 });
             });
 
-            // generate release notes button
+            // create the race result
             $("button").click(function () {
 
-                let selectedRepository = $("#repositories").val();
-                let startingTag = $("#startingTag").val();
-                let endingTag = $("#endingTag").val();
+                var date = $("#date").val();
+                var driver = $("#driver").val();
+                var track = $("#track").val();
+                var position = $("#position").val();
 
-                let queryStrings = "?startTag=" + startingTag;
-                queryStrings += "&endTag=" + endingTag;
-                queryStrings += "&repositoryName=" + selectedRepository;
+                var body = {
+                    "date" : date,
+                    "driver" : driver,
+                    "track" : track,
+                    "position" : position
+                };
 
-                let commitMessagesUrl = "https://efbdd5mnf1.execute-api.us-east-1.amazonaws.com/prod/commitMessages";
-                commitMessagesUrl += queryStrings;
-
-                $.getJSON(commitMessagesUrl, function (data) {
-
-                    $("#releaseNotesHeader").text("Release Notes for repository: " + selectedRepository);
-
-                    $.each(data, function (index, commitMessage) {
-                        $("#releaseNotes").append("<li>" + commitMessage + "</li >");
-                    });
+                $.post("https://dt8ucxb8ol.execute-api.us-east-1.amazonaws.com/prod/createRaceResult", JSON.stringify(body), function(data){
+                    alert("race result created successfully");
                 });
             });
         });
@@ -54,19 +50,29 @@
 </head>
 <body>
 
-    <h2>Formula 1 Race Results</h2>
+<h2>Formula 1 Race Results</h2>
 
-    <table id="raceResults" width="800px">
-        <tr>
-            <th>Date</th>
-            <th>Driver</th>
-            <th>Track</th>
-            <th>Position</th>
-        </tr>
-    </table>
+<table id="raceResults" width="800px">
+    <tr>
+        <th>Date</th>
+        <th>Driver</th>
+        <th>Track</th>
+        <th>Position</th>
+    </tr>
+</table>
 
-    <form>
+<h2>Add Race Result</h2>
+<div>
+    <label for="date">Date:</label>
+    <input type="text" id="date" name="date"><br><br>
+    <label for="driver">Driver:</label>
+    <input type="text" id="driver" name="driver"><br><br>
+    <label for="driver">Track:</label>
+    <input type="text" id="track" name="track"><br><br>
+    <label for="position">Position:</label>
+    <input type="text" id="position" name="position"><br><br>
+</div>
 
-    </form>
+<button>Create Race Result</button>
 </body>
 </html>
